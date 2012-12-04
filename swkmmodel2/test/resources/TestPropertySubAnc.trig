@@ -1,0 +1,15 @@
+
+<http://ngtest.org#> {
+
+	<http://benchmark#PropertyA> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+	<http://benchmark#PropertyB> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+	<http://benchmark#PropertyC> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> .
+
+	<http://benchmark#PropertyA> <http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://benchmark#PropertyB> ;
+		<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://benchmark#PropertyC> .
+
+	<http://benchmark#PropertyD> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ;
+		<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://benchmark#PropertyA> .
+}

@@ -1,0 +1,6 @@
+
+<http://ngtest2.org#> {
+
+	<http://benchmark#ClassB>
+		<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://benchmark#ClassC> .
+}

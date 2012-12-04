@@ -1,0 +1,73 @@
+RdfTyping algorithm explanation
+
+Dimitris Andreou, October 2008
+----------------------------------
+
+We want to make sure that the algorithm:
+- always terminates
+- is indifferent to the order of triple examination
+- produces a correct typing, if such a typing exists
+- reports meaningful errors, if no correct typing exists
+
+
+We use several techniques to attack all of these targets.
+
+First of all, the allowed transitions of a node's type form strictly a DAG, i.e. no cycles allowed. These are the types:
+UNKNOWN (initial type of nodes)
+CLASS
+PROPERTY
+METACLASS
+METAPROPERTY
+INDIVIDUAL
+NAMED_GRAPH
+STATEMENT
+ALT
+BAG
+SEQ
+
+The allowed type transitions:
+UNKNOWN       --> (everything)
+CLASS         --> PROPERTY | METACLASS | METAPROPERTY]
+PROPERTY      --> METAPROPERTY
+INDIVIDUAL    --> NAMED_GRAPH, CLASS, METACLASS, PROPERTY, METAPROPERTY, STATEMENT, ALT, BAG, SEQ
+METACLASS     --> (nothing)
+METAPROPERTY  --> (nothing)
+STATEMENT     --> (nothing)
+ALT,BAG,SEQ   --> (nothing)
+NAMED_GRAPH   --> (nothing)
+
+For example, a node cannot be initially typed as a CLASS, then METACLASS, and then again CLASS, since there is no transition from a METACLASS back to CLASS. 
+
+For each triple we check and apply some (predicate-specific typically) rules. **These rules take into considaration the current type of the triple's nodes**. For example, consider the triple:
+<A rdfs:subClassOf B>
+If type(A) == CLASS and type(B) == UNKNOWN, will make type(B) == CLASS.
+Whereas if type(A) were METACLASS, then type(B) would also become a METACLASS instead of a CLASS.
+
+So it is obvious that the typing computation based on a triple is dependant on the types of the triples nodes at the time the triple was considered. The immediate consequence of this is that **when a type of a node changes, it may invalidates prior decisions that were based on the old type of the node**. A node type change can only affect the triples which reference it, since when we apply the triple-specific rules we depend on the types of the triple nodes only. But this may recursively create a long chain of changes. But, since the type transitions form a DAG, we are assured that when we revisit a triple due to a type change, either some triple's node type will also change, moving closer to a leaf type (one that allows no more transitions), or there was no effect at all and the triple revisit is terminated.
+
+To cope with incomplete information, we consistently apply the rule of "least assumption": we assume a valid typing that is amendable to transition to any other valid typing. For example, consider again the triple:
+<A rdfs:subClassOf B>, with type(A) == UNKNOWN and type(B) == UNKNOWN
+Both type(A) == type(B) == CLASS and type(A) == type(B) == METACLASS are valid typings. We must allow for both (since anyone may later turn out to be the only possible one). On the other hand, we do want to infer /some/ information, even uncertain, from this triple. It would be a pity to leave both A and B to be UNKNOWN, which means nothing. So we choose to make them CLASS, which is more specific than UNKNOWN, and yet allows for METACLASS, if need may come, and till then it can serve as a useful "default" type. 
+
+Note that it is very easy to clarify the intended type of a resource. For example:
+<A rdfs:subClassOf rdf:Resource>
+has only one valid typing for A: CLASS. Similar rules exists for the other types. So the way to choose between uncertain possibilities explained above is not critical - it is only useful for cases where the user neglects to provide explicit typing information. 
+
+To sum-up, when a node type change occurs, we revisit all the triples that referenced that node. **We need to be sure that the order of the revisit is insignificant**, or else the typing result would be undefined.
+
+Validation errors are reported as followed. Consider the triples:
+<A rdfs:subClassOf rdf:Resource>
+<B rdfs:subClassOf A>
+<C rdfs:subClassOf B>
+
+To this point, all A, B, C are of type CLASS. Now assume we add this triple:
+<C rdfs:subClassOf rdfs:Class>
+This has the direct consequence that type(C) becomes METACLASS. We then revisit triple:
+<C rdfs:subClassOf B>
+Making type(B) == METACLASS too. We similarly revisit:
+<B rdfs:subClassOf A>
+And make type(A) == METACLASS. Then we revisit:
+<A rdfs:subClassOf rdf:Resource>
+And dutifully make type(rdf:Resource) == METACLASS. But the type of rdf:Resource is a constant, and is CLASS, so it is illegal for it to become METACLASS. The reported validation error should include the whole chain of changes, from triple <C rdfs:subClassOf rdfs:Class> to the intermediate triples to the final type(rdf:Resource) --> METACLASS attempted transition. Note that, this way, we completely avoid the need to mark custom resources (apart from the standard ones) as having "final" types (i.e. to somehow infer that the type of C cannot change), which would be highly problematic: it wouldn't provide much information on *why* something has the final type it has (in the current solution, the topology of the triples explains and defines the unchangeable nature of the type of a node, which is reported as a chain of changes), and it would be a highly problematic piece of
+information to update in case of triple deletions.
+

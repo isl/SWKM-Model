@@ -1,0 +1,26 @@
+
+<http://ngtest3.org#> {
+
+	<http://testnamespace#ClassA> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://testnamespace#ClassB> a <http://www.w3.org/2000/01/rdf-schema#Class> ;
+		<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://testnamespace#ClassA> .
+
+	<http://testnamespace#ClassC> a <http://www.w3.org/2000/01/rdf-schema#Class> ;
+		<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://testnamespace#ClassB> .
+
+	<http://testnamespace#ClassD> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://testnamespace#ClassE> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://testnamespace#PropertyA> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ;
+		<http://www.w3.org/2000/01/rdf-schema#domain> <http://testnamespace#ClassB> ;
+		<http://www.w3.org/2000/01/rdf-schema#range> <http://testnamespace#ClassD> .
+
+	<http://testnamespace#PropertyB> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ;
+		<http://www.w3.org/2000/01/rdf-schema#subPropertyOf> <http://testnamespace#PropertyA> .
+
+	<http://testnamespace#PropertyC> a <http://www.w3.org/1999/02/22-rdf-syntax-ns#Property> ;
+		<http://www.w3.org/2000/01/rdf-schema#domain> <http://testnamespace#ClassD> ;
+		<http://www.w3.org/2000/01/rdf-schema#range> <http://testnamespace#ClassE> .
+}

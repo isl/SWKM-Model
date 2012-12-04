@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!-- This is a metaschema. Here are defined meta-classes of classes
+ (e.g., RealWorldObject), meta-classes of properties (i.e., SchemaProperty)
+ as well properties that are applied to classes (e.g., related)
+ and properties that are applied  to properties (e.g., maxCardinality)
+-->
+<rdf:RDF xml:lang="en"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+    xml:base="http://metaschemaUri#" >
+
+<rdfs:Class rdf:ID="RealWorldObject">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdfs:Class>
+
+<rdfs:Class rdf:ID="WebResource">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</rdfs:Class>
+
+<rdfs:Class rdf:ID="SchemaProperty">
+    <rdfs:subClassOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+</rdfs:Class>
+<SchemaProperty rdf:ID="related">
+   <rdfs:domain rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+   <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
+</SchemaProperty>
+
+<SchemaProperty rdf:ID="maxCardinality">
+   <rdfs:domain rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"/>
+   <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+ </SchemaProperty>
+</rdf:RDF>

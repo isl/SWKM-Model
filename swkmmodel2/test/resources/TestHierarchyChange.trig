@@ -1,0 +1,12 @@
+
+<http://ngtest.org#> {
+
+	<http://benchmark#ClassA> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://benchmark#ClassB> a <http://www.w3.org/2000/01/rdf-schema#Class> ;
+		<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://benchmark#ClassA> .
+
+	<http://benchmark#ClassC> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://benchmark#ClassD> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+}

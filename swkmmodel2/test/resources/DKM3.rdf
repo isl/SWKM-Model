@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns="http://www.kp-lab.org/ontologies/CSM/test/DKM3#"
+   xml:base="http://www.kp-lab.org/ontologies/CSM/test/DKM3#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+   <rdfs:Class rdf:ID="DKM_Node">
+      <rdfs:subClassOf
+         rdf:resource="http://www.kp-lab.org/system-model/TLO#ContentItem" />
+   </rdfs:Class>
+
+   <rdfs:Class rdf:ID="DKM_Note">
+      <rdfs:subClassOf rdf:resource="#DKM_Node" />
+   </rdfs:Class>
+   <rdfs:Class rdf:ID="DKM_Factor">
+      <rdfs:subClassOf rdf:resource="#DKM_Node" />
+   </rdfs:Class>
+   <rdfs:Class rdf:ID="DKM_Mechanism">
+      <rdfs:subClassOf rdf:resource="#DKM_Node" />
+   </rdfs:Class>
+
+   <rdfs:Class rdf:ID="DKM_Intervention">
+      <rdfs:subClassOf rdf:resource="#DKM_Factor" />
+   </rdfs:Class>
+
+   <rdfs:Class rdf:ID="DKM_Relation">
+      <rdfs:subClassOf
+         rdf:resource="http://www.kp-lab.org/system-model/TLO#Relationship" />
+   </rdfs:Class>
+
+   <rdfs:Class rdf:ID="DKM_relates_to">
+      <rdfs:subClassOf rdf:resource="#DKM_Relation" />
+   </rdfs:Class>
+   <rdfs:Class rdf:ID="DKM_has_positive_effect">
+      <rdfs:subClassOf rdf:resource="#DKM_relates_to" />
+   </rdfs:Class>
+   <rdfs:Class rdf:ID="DKM_has_negative_effect">
+      <rdfs:subClassOf rdf:resource="#DKM_relates_to" />
+   </rdfs:Class>
+
+</rdf:RDF>

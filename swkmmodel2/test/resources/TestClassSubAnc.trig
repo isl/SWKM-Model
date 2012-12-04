@@ -1,0 +1,15 @@
+
+<http://ngtest.org#> {
+
+	<http://benchmark#Class1> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://benchmark#Class2> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://benchmark#Class3> a <http://www.w3.org/2000/01/rdf-schema#Class> .
+
+	<http://benchmark#Class1> <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://benchmark#Class2> ;
+		<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://benchmark#Class3> .
+
+	<http://benchmark#Class4> a <http://www.w3.org/2000/01/rdf-schema#Class> ;
+		<http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://benchmark#Class1> .
+}

@@ -1,0 +1,113 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfsuite: <http://139.91.183.30:9090/RDF/rdfsuite.rdfs#> .
+@prefix : <http://biology#> .
+
+
+:Pfeizer{
+		:Disease rdf:type rdfs:Class .
+        :Disease rdfs:comment "Comment1".
+        :Disease rdfs:label "Comment1".
+		#Properties
+
+		:associatedWith rdf:type rdf:Property .
+		:associatedWith rdfs:domain :Receptor .
+		:associatedWith rdfs:range :Disease .
+        :associatedWith rdfs:comment "Comment2".
+        :associatedWith rdfs:label "Comment2".
+
+		:schizophrenia rdf:type :Disease .
+		:cardiac_fibrosis rdf:type :Disease .
+        :schizophrenia rdfs:comment "Comment3".
+        :schizophrenia rdfs:label "Comment3".
+        :schizophrenia rdfs:seeAlso :cardiac_fibrosis.
+        :schizophrenia rdfs:isDefinedBy :cardiac_fibrosis.
+}
+
+
+:IUPHAR{
+		#Classes
+
+		:Molecule rdf:type rdfs:Class .
+		:Protein rdf:type rdfs:Class .
+		:Protein rdfs:subClassOf :Molecule .
+
+		:Ligand rdf:type rdfs:Class .
+		:Receptor rdf:type rdfs:Class .
+
+		:Receptor rdfs:subClassOf :Protein .
+		:Ligand rdfs:subClassOf :Molecule .
+
+		:CellReceptor rdf:type rdfs:Class .
+		:CytoplasmicReceptor rdf:type rdfs:Class .
+		:Immunoglobulin rdf:type rdfs:Class .
+
+		:NeuroTransmitter rdf:type rdfs:Class .
+
+		:Hormone rdf:type rdfs:Class .
+		:Peptide rdf:type rdfs:Class .
+		:Steroid rdf:type rdfs:Class .
+
+		:CellReceptor rdfs:subClassOf :Receptor .
+		:CytoplasmicReceptor rdfs:subClassOf :Receptor .
+		:Immunoglobulin rdfs:subClassOf :Receptor .
+
+		:NeuroTransmitter rdfs:subClassOf :Ligand .
+		:Hormone rdfs:subClassOf :Ligand .
+
+		:Peptide rdfs:subClassOf :Hormone .
+		:Steroid rdfs:subClassOf :Hormone .
+
+        :Protein rdfs:seeAlso :Hormone.
+        :Steroid rdfs:isDefinedBy :Immunoglobulin.
+
+		#Properties
+
+		:bindsTo rdf:type rdf:Property .
+		:bindsTo rdfs:domain :Molecule .
+		:bindsTo rdfs:range :Receptor .
+
+}
+
+
+:GSK{
+		#Classes
+
+		:NeuroTransReceptor rdf:type rdfs:Class .
+		:NeuroTransReceptor rdfs:subClassOf :Receptor .
+
+		:NeuroMediator rdf:type rdfs:Class .
+		:NeuroModulator rdf:type rdfs:Class .
+
+		:NeuroMediator rdfs:subClassOf :NeuroTransmitter .
+		:NeuroModulator rdfs:subClassOf :NeuroTransmitter .
+
+		#Properties
+
+		:bindsToNeuroTrans rdf:type rdf:Property .
+		:bindsToNeuroTrans rdfs:domain :NeuroTransmitter .
+		:bindsToNeuroTrans rdfs:range :NeuroTransReceptor .
+
+		:bindsToNeuroTrans rdfs:subPropertyOf :bindsTo .
+
+}
+
+:HADASSAH{
+		:serotonin rdf:type :NeuroMediator .
+		:serotonin_receptor_5-HT rdf:type :NeuroTransReceptor .
+		:serotonin :bindsToNeuroTrans :serotonin_receptor_5-HT .
+
+		:serotonin_receptor_5-HT :associatedWith :cardiac_fibrosis .
+
+		:dopamine rdf:type :NeuroModulator .
+
+}
+
+:FORTH{
+		:dopamine rdf:type :NeuroMediator .
+		:dopamine_receptor_D2 rdf:type :NeuroTransReceptor .
+		:dopamine :bindsToNeuroTrans :dopamine_receptor_D2 .
+
+		:dopamine_receptor_D2 :associatedWith :schizophrenia .
+}
