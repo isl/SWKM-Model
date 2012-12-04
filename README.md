@@ -1,5 +1,11 @@
 SWKM-Model
 ==========
+  
+The ICS-FORTH SWKM Model: A Main Memory RDF/S Management System. 
+
+This distribution contains:
+The SWKM MODEL 3.0.0 bundle 
+  includes: source code (NetBeans project), binary, required libraries and javadocs.
  
   COPYRIGHT (c) 2008-2009 by Institute of Computer Science, 
   Foundation for Research and Technology - Hellas
@@ -29,9 +35,3 @@ SWKM-Model
  
    SWKM has been partially supported by EU project KP-Lab (IP IST-27490) kp-lab.org
 
-
-The ICS-FORTH SWKM Model: A Main Memory RDF/S Management System. 
-
-This distribution contains:
-The SWKM MODEL 3.0.0 bundle 
-  includes: source code (NetBeans project), binary, required libraries and javadocs.
